@@ -11,14 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426042609) do
+ActiveRecord::Schema.define(:version => 20130528151136) do
 
   create_table "spots", :force => true do |t|
     t.string   "name"
     t.string   "artist"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.decimal  "lat",         :precision => 17, :scale => 14
+    t.decimal  "lng",         :precision => 17, :scale => 14
+    t.string   "era"
+    t.string   "material"
+    t.string   "scale"
   end
 
 end
