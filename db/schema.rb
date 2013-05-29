@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529135754) do
+ActiveRecord::Schema.define(:version => 20130529154034) do
 
   create_table "spots", :force => true do |t|
     t.string   "name"
@@ -24,7 +24,10 @@ ActiveRecord::Schema.define(:version => 20130529135754) do
     t.string   "era"
     t.string   "material"
     t.string   "scale"
+    t.integer  "user_id"
   end
+
+  add_index "spots", ["user_id"], :name => "index_spots_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "username",         :null => false

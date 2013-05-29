@@ -8,6 +8,7 @@ gem 'rails', '3.2.11'
 group :development do
   gem 'sqlite3'
   gem 'erb2haml'
+  gem 'annotate', ">=2.5.0"
 end
 
 group :production do
@@ -52,5 +53,3 @@ gem 'jquery-rails'
 
 gem 'sorcery'
 gem 'haml-rails'
-
-
