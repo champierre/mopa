@@ -6,15 +6,24 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    #nav
-      - if current_user
-        = link_to "Edit Profile", edit_user_path(current_user.id)
-        = link_to "Logout", :logout
-      - else
-        = link_to "Register", new_user_path
-        |
-        \#{link_to "Login", :login}
-    %div
-      %p#notice= notice
-      %p#alert= alert
-    = yield
+    .container
+      .navbar.navbar-fixed-top
+        .navbar-inner
+          .container
+            %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            = link_to 'Mopa', root_path, class: 'brand'
+            .nav-collapse
+              %ul.nav
+                - if current_user
+                  %li= link_to "Edit Profile", edit_user_path(current_user.id)
+                  %li= link_to "Logout", :logout
+                - else
+                  %li= link_to "Register", new_user_path
+                  %li= link_to "Login", :login
+      %div
+        %p#notice= notice
+        %p#alert= alert
+      = yield
