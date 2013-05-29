@@ -1,4 +1,17 @@
 Mopa::Application.routes.draw do
+  get "user_sessions/new"
+
+  get "user_sessions/create"
+
+  get "user_sessions/destroy"
+
+  root :to => 'users#index'
+  resources :user_sessions
+  resources :users
+
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'logout' => 'user_sessions#destroy', :as => :logout
+
   resources :spots
 
   # The priority is based upon order of creation:
@@ -50,7 +63,7 @@ Mopa::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'spots#index'
+  # root :to => 'spots#index'
 
   # See how all your routes lay out with "rake routes"
 

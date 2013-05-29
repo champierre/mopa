@@ -7,6 +7,7 @@ gem 'rails', '3.2.11'
 
 group :development do
   gem 'sqlite3'
+  gem 'erb2haml'
 end
 
 group :production do
@@ -48,4 +49,6 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug'
+
+gem 'sorcery'
 
