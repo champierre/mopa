@@ -1,0 +1,19 @@
+%h1 Listing spots
+%table
+  %tr
+    %th Name
+    %th Artist
+    %th Description
+    %th
+    %th
+    %th
+  - @spots.each do |spot|
+    %tr
+      %td= spot.name
+      %td= spot.artist
+      %td= spot.description
+      %td= link_to 'Show', spot
+      %td= link_to 'Edit', edit_spot_path(spot)
+      %td= link_to 'Destroy', spot, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New Spot', new_spot_path

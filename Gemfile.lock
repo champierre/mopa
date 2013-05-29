@@ -60,6 +60,11 @@ GEM
     fssm (0.2.10)
     haml (4.0.3)
       tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     hike (1.2.2)
     hpricot (0.8.6)
     html2haml (1.0.1)
@@ -154,6 +159,7 @@ DEPENDENCIES
   compass-rails
   erb2haml
   font-awesome-sass-rails
+  haml-rails
   jquery-rails
   json
   pg

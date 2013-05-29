@@ -51,4 +51,6 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 gem 'sorcery'
+gem 'haml-rails'
+
 

@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b Name:
+  = @spot.name
+%p
+  %b Artist:
+  = @spot.artist
+%p
+  %b Description:
+  = @spot.description
+= link_to 'Edit', edit_spot_path(@spot)
+|
+\#{link_to 'Back', spots_path}
