@@ -3,21 +3,23 @@
   %tr
     %th
     %th Name
-    %th Artist
-    %th Description
-    %th Era
-    %th Material
-    %th Scale
+    - unless mobile_device?
+      %th Artist
+      %th Description
+      %th Era
+      %th Material
+      %th Scale
     %th
   - @spots.each do |spot|
     %tr
       %td= link_to image_tag(spot.picture.url(:thumb)), spot.picture.url
       %td= link_to spot.name, spot
-      %td= spot.artist
-      %td= truncate spot.description, length: 30
-      %td= spot.era
-      %td= spot.material
-      %td= spot.scale
+      - unless mobile_device?
+        %td= spot.artist
+        %td= truncate spot.description, length: 30
+        %td= spot.era
+        %td= spot.material
+        %td= spot.scale
       %td
         = link_to 'Edit', edit_spot_path(spot), class: 'btn mini-btn'
         = link_to 'Destroy', spot, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
