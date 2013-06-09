@@ -5,6 +5,7 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = javascript_include_tag "http://maps.googleapis.com/maps/api/js?key=#{GMAP_KEY}&sensor=true" if @gmap
+    %meta{:content => "width=device-width", :name => "viewport"}
     = yield :javascript
     = csrf_meta_tags
   %body
