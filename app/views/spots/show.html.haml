@@ -1,4 +1,6 @@
-%p#notice= notice
+%p
+  = link_to image_tag(@spot.picture.url(:medium)), @spot.picture.url
+
 %p
   %b Name:
   = @spot.name
@@ -8,6 +10,16 @@
 %p
   %b Description:
   = @spot.description
-= link_to 'Edit', edit_spot_path(@spot)
+%p
+  %b Era:
+  = @spot.era
+%p
+  %b Material:
+  = @spot.material
+%p
+  %b Scale:
+  = @spot.scale
+
+= link_to 'Edit', edit_spot_path(@spot), class: 'btn'
 |
 \#{link_to 'Back', spots_path}

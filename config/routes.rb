@@ -5,7 +5,6 @@ Mopa::Application.routes.draw do
 
   get "user_sessions/destroy"
 
-  root :to => 'users#index'
   resources :user_sessions
   resources :users
 
@@ -63,7 +62,7 @@ Mopa::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'spots#index'
+  root :to => 'spots#index'
 
   # See how all your routes lay out with "rake routes"
 

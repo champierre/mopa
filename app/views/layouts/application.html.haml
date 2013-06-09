@@ -23,7 +23,10 @@
                 - else
                   %li= link_to "Register", new_user_path
                   %li= link_to "Login", :login
-      %div
-        %p#notice= notice
-        %p#alert= alert
+
+      = render partial: 'shared/flash', locals: {flash: flash}
       = yield
+
+    .footer
+      .container
+        © Mopa

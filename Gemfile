@@ -53,3 +53,5 @@ gem 'jquery-rails'
 
 gem 'sorcery'
 gem 'haml-rails'
+gem 'paperclip'
+gem 'aws-sdk', '~> 1.3.4'
