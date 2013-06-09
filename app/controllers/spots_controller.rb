@@ -1,5 +1,5 @@
 class SpotsController < ApplicationController
-  skip_before_filter :require_login, :only => [:index]
+  skip_before_filter :require_login, :only => [:index, :show]
 
   # GET /spots
   # GET /spots.json
