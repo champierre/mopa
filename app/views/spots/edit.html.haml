@@ -1,3 +1,52 @@
+- @gmap = true
 %h3 Editing spot
+- content_for :javascript do
+  :javascript
+    var markersArray = [];
+    var map;
+    
+    function initialize() {
+      var options = {
+        center: new google.maps.LatLng(#{@spot.lat}, #{@spot.lng}),
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false,
+        zoomControl: #{mobile_device? ? 'false' : 'true'},
+        mapTypeControl: false
+      };
+      map = new google.maps.Map(document.getElementById("map"),
+          options);
+    
+      var location = new google.maps.LatLng(#{@spot.lat}, #{@spot.lng});
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+      
+      google.maps.event.addListener(map, 'click', function(event) {
+        marker.setMap(null)
+        clearOverlays();
+        addMarker(event.latLng);
+        
+        $('#spot_lat').val(event.latLng.lat());
+        $('#spot_lng').val(event.latLng.lng());
+      });
+    }
+    
+    function addMarker(location) {
+      marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+      markersArray.push(marker);
+    }
+    
+    function clearOverlays() {
+      if (markersArray) {
+        for (i in markersArray) {
+          markersArray[i].setMap(null);
+        }
+      }
+    }
 = render 'form'
 = link_to 'Back', spots_path

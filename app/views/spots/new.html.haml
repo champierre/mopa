@@ -1,3 +1,111 @@
+- @gmap = true
 %h3 New spot
+- content_for :javascript do
+  :javascript
+    var markersArray = [];
+    var map;
+    
+    function initialize() {
+      initMap();
+    
+      var geo = navigator.geolocation;
+      if (!geo) {
+        alert("位置情報を取得できませんでした。");
+      } else {
+        // 現在の位置情報を取得
+        navigator.geolocation.getCurrentPosition(
+          // （1）位置情報の取得に成功した場合
+          function (pos) {
+            var lat = pos.coords.latitude;
+            var lng = pos.coords.longitude;
+    
+            var location = new google.maps.LatLng(lat, lng);
+            var marker = new google.maps.Marker({
+              position: location,
+              map: map
+            });
+            markersArray.push(marker);
+            map.panTo(location);
+    
+            $('#spot_lat').val(pos.coords.latitude);
+            $('#spot_lng').val(pos.coords.longitude);
+          },
+          // （2）位置情報の取得に失敗した場合
+          function (error) {
+            var message = "";
+            switch (error.code) {
+              // 位置情報が取得できない場合
+              case error.POSITION_UNAVAILABLE:
+                message = "位置情報の取得ができませんでした。";
+                break;
+              // Geolocationの使用が許可されない場合
+              case error.PERMISSION_DENIED:
+                message = "位置情報取得の使用許可がされませんでした。";
+                break;
+              // タイムアウトした場合
+              case error.PERMISSION_DENIED_TIMEOUT:
+                message = "位置情報取得中にタイムアウトしました。";
+                break;
+            }
+            alert(message);
+          }
+        );
+      }
+    }
+    
+    function initMap() {
+      var lat, lng;
+      if ($('#spot_lat').val() && $('#spot_lng').val()) {
+        lat = $('#spot_lat').val();
+        lng = $('#spot_lng').val();
+      } else {
+        lat = #{APP_CONFIG[:default_coords]["lat"]};
+        lng = #{APP_CONFIG[:default_coords]["lng"]};
+      }
+    
+      var options = {
+        center: new google.maps.LatLng(lat, lng),
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false,
+        zoomControl: #{mobile_device? ? 'false' : 'true'},
+        mapTypeControl: false
+      };
+      map = new google.maps.Map(document.getElementById("map"), options);
+    
+      if ($('#spot_lat').val() && $('#spot_lng').val()) {
+        var location = new google.maps.LatLng(lat, lng);
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+        markersArray.push(marker);
+        map.panTo(location);
+      }
+    
+      google.maps.event.addListener(map, 'click', function(event) {
+        clearOverlays();
+        addMarker(event.latLng);
+    
+        $('#spot_lat').val(event.latLng.lat());
+        $('#spot_lng').val(event.latLng.lng());
+      });
+    }
+    
+    function addMarker(location) {
+      marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+      markersArray.push(marker);
+    }
+    
+    function clearOverlays() {
+      if (markersArray) {
+        for (i in markersArray) {
+          markersArray[i].setMap(null);
+        }
+      }
+    }
 = render 'form'
 = link_to 'Back', spots_path

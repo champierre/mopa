@@ -21,3 +21,4 @@ public/system
 vendor/bundle
 bin
 config/s3.yml
+config/gmap_key.yml

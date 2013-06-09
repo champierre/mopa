@@ -1,0 +1,13 @@
+default:
+  default_coords:
+    lat: 35.681391
+    lng: 139.766103
+
+development:
+  domain: mopa.dev
+
+test:
+  domain: test.host
+
+production:
+  domain: mopa.herokuapp.com
