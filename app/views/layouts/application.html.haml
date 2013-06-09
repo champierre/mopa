@@ -20,6 +20,7 @@
             = link_to 'Mopa', root_path, class: 'brand'
             .nav-collapse
               %ul.nav
+                %li= link_to "Spots", spots_path
                 - if current_user
                   %li= link_to "Edit Profile", edit_user_path(current_user.id)
                   %li= link_to "Logout", :logout
