@@ -4,6 +4,7 @@
     %th
     %th Name
     - unless mobile_device?
+      %th Posted by
       %th Artist
       %th Description
       %th Era
@@ -15,13 +16,15 @@
       %td= link_to image_tag(spot.picture.url(:thumb)), spot.picture.url
       %td= link_to spot.name, spot
       - unless mobile_device?
+        %td= spot.user.try(:username)
         %td= spot.artist
         %td= truncate spot.description, length: 30
         %td= spot.era
         %td= spot.material
         %td= spot.scale
       %td
-        = link_to 'Edit', edit_spot_path(spot), class: 'btn mini-btn'
-        = link_to 'Destroy', spot, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
+        - if spot.user == current_user
+          = link_to 'Edit', edit_spot_path(spot), class: 'btn mini-btn'
+          = link_to 'Destroy', spot, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
 %br/
 = link_to 'New Spot', new_spot_path, class: 'btn btn-primary'

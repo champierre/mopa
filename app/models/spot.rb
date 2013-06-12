@@ -21,7 +21,7 @@
 #
 
 class Spot < ActiveRecord::Base
-  attr_accessible :artist, :description, :name, :lat, :lng, :era, :material, :scale, :picture
+  attr_accessible :artist, :description, :name, :lat, :lng, :era, :material, :scale, :picture, :user_id
   belongs_to :user
 
   has_attached_file :picture, :styles => { :medium => "640x640>", :thumb => "100x100>" },

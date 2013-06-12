@@ -29,6 +29,9 @@
   %b Name:
   = @spot.name
 %p
+  %b Posted by:
+  = @spot.user.try(:username)
+%p
   %b Artist:
   = @spot.artist
 %p

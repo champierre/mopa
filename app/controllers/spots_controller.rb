@@ -1,5 +1,6 @@
 class SpotsController < ApplicationController
   skip_before_filter :require_login, :only => [:index, :show]
+  before_filter :find_spot, :only => [:edit, :update, :destroy]
 
   # GET /spots
   # GET /spots.json
@@ -27,6 +28,7 @@ class SpotsController < ApplicationController
   # GET /spots/new.json
   def new
     @spot = Spot.new
+    @spot.user = current_user
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,7 +38,6 @@ class SpotsController < ApplicationController
 
   # GET /spots/1/edit
   def edit
-    @spot = Spot.find(params[:id])
   end
 
   # POST /spots
@@ -58,8 +59,6 @@ class SpotsController < ApplicationController
   # PUT /spots/1
   # PUT /spots/1.json
   def update
-    @spot = Spot.find(params[:id])
-
     respond_to do |format|
       if @spot.update_attributes(params[:spot])
         format.html { redirect_to @spot, :notice => 'Spot was successfully updated.' }
@@ -74,12 +73,17 @@ class SpotsController < ApplicationController
   # DELETE /spots/1
   # DELETE /spots/1.json
   def destroy
-    @spot = Spot.find(params[:id])
     @spot.destroy
 
     respond_to do |format|
       format.html { redirect_to spots_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def find_spot
+    @spot = Spot.find(params[:id])
+    redirect_to root_url, alert: 'Unauthorized' if @spot.user != current_user
   end
 end
