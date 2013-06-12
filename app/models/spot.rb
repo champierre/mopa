@@ -30,4 +30,5 @@ class Spot < ActiveRecord::Base
   :path => ":attachment/:id/:style.:extension",
   :default_url => "/assets/no_images/spot/:style.png"
 
+  default_scope order('created_at DESC')
 end
