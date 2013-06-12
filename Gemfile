@@ -55,4 +55,5 @@ gem 'haml-rails'
 gem 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'compass-rails'
+gem 'kaminari'
 

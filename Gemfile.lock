@@ -95,6 +95,9 @@ GEM
     json (1.8.0)
     jwt (0.1.6)
       multi_json (>= 1.0)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -189,6 +192,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   json
+  kaminari
   paperclip
   pg
   rails (= 3.2.11)

@@ -5,7 +5,7 @@ class SpotsController < ApplicationController
   # GET /spots
   # GET /spots.json
   def index
-    @spots = Spot.all
+    @spots = Spot.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

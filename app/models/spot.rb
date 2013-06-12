@@ -31,4 +31,5 @@ class Spot < ActiveRecord::Base
   :default_url => "/assets/no_images/spot/:style.png"
 
   default_scope order('created_at DESC')
+  paginates_per Rails.env.development? ? 2 : 10
 end
