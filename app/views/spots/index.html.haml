@@ -15,7 +15,7 @@
   - @spots.each do |spot|
     %tr
       %td= link_to image_tag(spot.picture.url(:thumb)), spot.picture.url
-      %td= link_to spot.name.blank? ? spot.name : '---', spot
+      %td= link_to spot.name.present? ? spot.name : '---', spot
       - unless mobile_device?
         %td= spot.user.try(:username)
         %td= spot.artist
@@ -24,7 +24,7 @@
         %td= spot.material
         %td= spot.scale
       %td
-        - if spot.user == current_user
+        - if current_user && spot.user == current_user
           = link_to 'Edit', edit_spot_path(spot), class: 'btn mini-btn'
           = link_to 'Destroy', spot, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
 
