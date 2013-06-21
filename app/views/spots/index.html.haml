@@ -15,7 +15,7 @@
   - @spots.each do |spot|
     %tr
       %td= link_to image_tag(spot.picture.url(:thumb)), spot.picture.url
-      %td= link_to spot.name, spot
+      %td= link_to spot.name.blank? ? spot.name : '---', spot
       - unless mobile_device?
         %td= spot.user.try(:username)
         %td= spot.artist
