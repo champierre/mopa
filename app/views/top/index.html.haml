@@ -53,9 +53,14 @@
              thumb_url: data[i]['thumb_url']
           });
 
+          name = data[i]['name']
+          if (name.length == 0) {
+            name = '---';
+          }
+
           $("#spot-list").append("<tr>" + 
-            "<td style=\"width:60px\"><a href=\"/spots/" + data[i]['id'] + "\"><img width=\"50px\" src=\"" + data[i]['thumb_url'] + "\" alt=\"" + data[i]['name'] + "\"/></a></td>" +
-            "<td><a href=\"/spots/" + data[i]['id'] + "\">" + data[i]['name'] + "</a></td>" +
+            "<td style=\"width:60px\"><a href=\"/spots/" + data[i]['id'] + "\"><img width=\"50px\" src=\"" + data[i]['thumb_url'] + "\" alt=\"" + name + "\"/></a></td>" +
+            "<td><a href=\"/spots/" + data[i]['id'] + "\">" + name + "</a></td>" +
             "</tr>");
 
           google.maps.event.addListener(marker, 'click', function() {
