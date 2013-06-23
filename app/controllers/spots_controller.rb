@@ -1,11 +1,9 @@
 class SpotsController < ApplicationController
-  skip_before_filter :require_login, :only => [:index, :show]
+  skip_before_filter :require_login, :only => [:index, :show, :in_area]
   before_filter :find_spot, :only => [:edit, :update, :destroy]
 
-  # GET /spots
-  # GET /spots.json
   def index
-    @spots = Spot.page params[:page]
+    @spots = Spot.order('created_at DESC').page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +11,6 @@ class SpotsController < ApplicationController
     end
   end
 
-  # GET /spots/1
-  # GET /spots/1.json
   def show
     @spot = Spot.find(params[:id])
 
@@ -24,8 +20,6 @@ class SpotsController < ApplicationController
     end
   end
 
-  # GET /spots/new
-  # GET /spots/new.json
   def new
     @spot = Spot.new
     @spot.user = current_user
@@ -36,12 +30,9 @@ class SpotsController < ApplicationController
     end
   end
 
-  # GET /spots/1/edit
   def edit
   end
 
-  # POST /spots
-  # POST /spots.json
   def create
     @spot = Spot.new(params[:spot])
 
@@ -56,8 +47,6 @@ class SpotsController < ApplicationController
     end
   end
 
-  # PUT /spots/1
-  # PUT /spots/1.json
   def update
     respond_to do |format|
       if @spot.update_attributes(params[:spot])
@@ -70,8 +59,6 @@ class SpotsController < ApplicationController
     end
   end
 
-  # DELETE /spots/1
-  # DELETE /spots/1.json
   def destroy
     @spot.destroy
 
@@ -79,6 +66,11 @@ class SpotsController < ApplicationController
       format.html { redirect_to spots_url }
       format.json { head :no_content }
     end
+  end
+
+  def in_area
+    @spots = Spot.in_area(params)
+    render :json => @spots.to_json
   end
 
   private

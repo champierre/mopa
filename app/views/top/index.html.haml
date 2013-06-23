@@ -1,0 +1,83 @@
+- @gmap = true
+- content_for :javascript do
+  :javascript
+    var markersArray = [];
+    var map;
+    var openedInfoWindows = [];
+    var updated = false;
+    
+    function initialize() {
+      var options = {
+        center: new google.maps.LatLng(#{@default_lat}, #{@default_lng}),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoomControl: #{mobile_device? ? 'false' : 'true'},
+        mapTypeControl: false
+      };
+      map = new google.maps.Map(document.getElementById("map"),
+          options);
+
+      updated = true;
+
+      google.maps.event.addListener(map,'bounds_changed',function(){
+        updated = true;
+      });
+
+      setTimeout(refresh, 1000);
+      setInterval(refresh, 3000);
+    }
+
+    function refresh() {
+      if (updated == false) { return; }
+
+      // clear list
+      $("#spot-list").html('');
+      
+      var n = map.getBounds().getNorthEast().lat();
+      var e = map.getBounds().getNorthEast().lng();
+      var w = map.getBounds().getSouthWest().lng();
+      var s = map.getBounds().getSouthWest().lat();
+      var center_lat = map.getCenter().lat();
+      var center_lng = map.getCenter().lng();
+
+      var url = "/spots/in_area?n=" + n + "&e=" + e + "&w=" + w + "&s=" + s + "&center_lat=" + center_lat + "&center_lng=" + center_lng;
+
+      $.getJSON(url, function(data){
+        for (i = 0; i < data.length; i++) {
+          var location = new google.maps.LatLng(data[i]['lat'], data[i]['lng']);
+          var marker = new google.maps.Marker({
+             title: data[i]['name'],
+             map: map,
+             position: location,
+             url: "/spots/" + data[i]['id'],
+             thumb_url: data[i]['thumb_url']
+          });
+
+          $("#spot-list").append("<tr>" + 
+            "<td style=\"width:60px\"><a href=\"/spots/" + data[i]['id'] + "\"><img width=\"50px\" src=\"" + data[i]['thumb_url'] + "\" alt=\"" + data[i]['name'] + "\"/></a></td>" +
+            "<td><a href=\"/spots/" + data[i]['id'] + "\">" + data[i]['name'] + "</a></td>" +
+            "</tr>");
+
+          google.maps.event.addListener(marker, 'click', function() {
+            for (var i = 0; i < openedInfoWindows.length; i++) {
+              openedInfoWindows[i].close();
+            }
+
+            var contentString = "<img style='width:100px;float:left;margin-right:10px;' src=\"" + this.thumb_url + "\">" + " <a href=\"" + this.url + "\">" + this.title + "</a>";
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+            infowindow.open(map, this);
+            openedInfoWindows.push(infowindow);
+          });
+        }
+      });
+
+      updated = false;
+    }
+.row
+  .span8
+    #map.google-maps{:style => "width:100%; height:600px"}
+  .span4
+    %table.table.table-striped#spot-list
+

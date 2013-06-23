@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Mopa
+    %title= content_for?(:title) ? yield(:title) + " - #{APP_CONFIG[:site_name]}" : APP_CONFIG[:site_name]
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = javascript_include_tag "http://maps.googleapis.com/maps/api/js?key=#{GMAP_KEY}&sensor=true" if @gmap
@@ -9,6 +9,7 @@
     = yield :javascript
     = csrf_meta_tags
   %body
+    = render partial: "shared/facebook_sdk"
     .container
       .navbar.navbar-fixed-top
         .navbar-inner

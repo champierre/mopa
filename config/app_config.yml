@@ -2,6 +2,8 @@ default:
   default_coords:
     lat: 35.681391
     lng: 139.766103
+  in_area_limit: 50
+  site_name: MoPA(Museum of Public Art)
 
 development:
   domain: mopa.dev

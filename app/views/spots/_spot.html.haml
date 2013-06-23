@@ -1,0 +1,11 @@
+%tr
+  %td= link_to image_tag(spot.picture.url(:thumb)), spot.picture.url
+  %td= link_to spot.name.present? ? spot.name : '---', spot
+  - unless mobile_device?
+    %td= spot.user.try(:username)
+    %td= spot.artist
+    %td= truncate spot.description, length: 30
+    %td= spot.era
+    %td= spot.material
+    %td= spot.scale
+  %td

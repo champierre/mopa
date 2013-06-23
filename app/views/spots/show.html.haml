@@ -1,4 +1,5 @@
-- @gmap = true
+- @gmap = 
+- content_for :title, @spot.name
 - content_for :javascript do
   :javascript
     var markersArray = [];
@@ -22,45 +23,48 @@
         map: map
       });
     }
-%p
-  = link_to image_tag(@spot.picture.url(:medium)), @spot.picture.url
 
-%p
-  %b Name:
-  = @spot.name
-%p
-  %b Posted by:
-  = @spot.user.try(:username)
-%p
-  %b Artist:
-  = @spot.artist
-%p
-  %b Description:
-  = @spot.description
-%p
-  %b Era:
-  = @spot.era
-%p
-  %b Material:
-  = @spot.material
-%p
-  %b Scale:
-  = @spot.scale
-%p
-  %b Lat:
-  = @spot.lat
-%p
-  %b Lng:
-  = @spot.lng
-%p
-  - if mobile_device?
-    #map.google-maps{:style => "width:230px; height:250px"}
-  - else
-    #map.google-maps{:style => "width:100%; height:400px"}
+.row
+  .span12
+    = render partial: 'breadcrumb'
+.row
+  .span6
+    = link_to image_tag(@spot.picture.url(:medium)), @spot.picture.url
+  .span6
+    - if mobile_device?
+      #map.google-maps{:style => "width:230px; height:200px"}
+    - else
+      #map.google-maps{:style => "width:100%; height:360px"}
+    %div{style: 'margin-top:10px;'}
+      = render partial: 'shared/sns_buttons'
+    %dl
+      %dt Name:
+      %dd= @spot.name
+    
+      %dt Posted by:
+      %dd= @spot.user.try(:username)
 
+      %dt Artist:
+      %dd= @spot.artist
 
+      %dt Description:
+      %dd= @spot.description
 
+      %dt Era:
+      %dd= @spot.era
 
-= link_to 'Edit', edit_spot_path(@spot), class: 'btn'
-|
-\#{link_to 'Back', spots_path}
+      %dt Material:
+      %dd= @spot.material
+
+      %dt Scale:
+      %dd= @spot.scale
+
+      %dt Coordinate:
+      %dd
+        = @spot.lat
+        ,
+        = @spot.lng
+
+    = link_to 'Edit', edit_spot_path(@spot), class: 'btn'
+    |
+    \#{link_to 'Back', spots_path}
