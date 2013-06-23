@@ -18,11 +18,23 @@
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-            = link_to 'Mopa', root_path, class: 'brand'
             .nav-collapse
               %ul.nav
                 %li= link_to "Spots(#{Spot.count})", spots_path
                 %li= link_to raw('<i class=" icon-plus-sign"></i> New Spot'), new_spot_path
+              %ul.nav.pull-right
+                %li= link_to "CURATORS TV", "http://www.curatorstv.com/", target: '_blank'
+                %li= link_to "CURATORS TV Blog", "http://blog.curatorstv.com/", target: '_blank'
+
+        .navbar-inner
+          .container
+            %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            .nav-collapse
+              %ul.nav
+                %li= link_to image_tag('logo.jpg', width: 100), root_path
               %ul.nav.pull-right
                 - if current_user
                   %li= link_to "Edit Profile", edit_user_path(current_user.id)
