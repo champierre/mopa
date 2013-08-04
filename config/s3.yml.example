@@ -1,0 +1,6 @@
+development:
+  access_key_id: YOURACCESSKEYID
+  secret_access_key: YOURSECRETACCESSKEY
+  s3_host_name: foohost.amazonaws.com
+  bucket: yourbacket
+
