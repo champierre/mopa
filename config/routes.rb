@@ -17,6 +17,8 @@ Mopa::Application.routes.draw do
     end
   end
 
+  get 'top/how_to_join', as: :how_to_join
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
