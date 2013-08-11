@@ -82,6 +82,15 @@
     }
 .row
   .span8
+    .well{style: 'position:relative;'}
+      = render partial: 'shared/fork_me'
+      %h1 What is MoPA?
+
+      %p MoPA stands for Museum of Public Art. This is a project which aims to archive public art all over the world on the Internet. You’ll find public art in familiar places, for example open space in front of the buildings, parks, cultural facilities and schools etc..
+
+      %p Won’t you enjoy looking for public art like treasure hunt and upload to MoPA’s site? We are looking forward to your joining.
+
+      %p= link_to 'How to join MOPA', how_to_join_path, class: 'btn btn-info'
     #map.google-maps{:style => "width:100%; height:600px"}
   .span4
     %table.table.table-striped#spot-list

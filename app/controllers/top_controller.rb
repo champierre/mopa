@@ -4,4 +4,7 @@ class TopController < ApplicationController
     @default_lat = Spot.last.lat
     @default_lng = Spot.last.lng
   end
+
+  def how_to_join
+  end
 end
