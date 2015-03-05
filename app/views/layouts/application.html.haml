@@ -12,7 +12,6 @@
     = render partial: "shared/facebook_sdk"
     .container
       .navbar.navbar-fixed-top
-        =# render partial: 'shared/banner'
         .navbar-inner
           .container
             %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
@@ -45,6 +44,7 @@
                   %li= link_to "Register", new_user_path
                   %li= link_to "Login", :login
 
+      = render partial: 'shared/banner'
       = render partial: 'shared/flash', locals: {flash: flash}
       = yield
 
