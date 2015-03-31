@@ -44,7 +44,6 @@
                   %li= link_to "Register", new_user_path
                   %li= link_to "Login", :login
 
-      = render partial: 'shared/banner'
       = render partial: 'shared/flash', locals: {flash: flash}
       = yield
 
